@@ -1,0 +1,45 @@
+<%- report_headers 'Name', 'Type', 'Sockets', 'Cores', 'OS', 'OS Version', 'Hypervisor', 'Registered Date/Time', 'Organization', 'Location', 'Capsule' -%>
+<%- load_hosts(includes: [:operatingsystem, :reported_data, :organization, :location], preload: [:subscription_facet, :content_facet]).each_record do |host| -%>
+<%-   os_name = '' -%>
+<%-   os_version = '' -%>
+<%-   if host.operatingsystem -%>
+<%-     os_name = host.operatingsystem.name -%>
+<%-     os_major = host.operatingsystem.major.to_s -%>
+<%-     os_minor = host.operatingsystem.minor.to_s -%>
+<%-     if os_minor.empty? -%>
+<%-       os_version = os_major -%>
+<%-     else -%>
+<%-       os_version = os_major + '.' + os_minor -%>
+<%-     end -%>
+<%-   end -%>
+<%-   virt_host = '' -%>
+<%-   if host.hypervisor_host -%>
+<%-     virt_host = host.hypervisor_host.name -%>
+<%-   end -%>
+<%-   org_name = '' -%>
+<%-   if host.organization -%>
+<%-     org_name = host.organization.name -%>
+<%-   end -%>
+<%-   loc_name = '' -%>
+<%-   if host.location -%>
+<%-     loc_name = host.location.name -%>
+<%-   end -%>
+<%-   capsule_name = '' -%>
+<%-   if host.content_source -%>
+<%-     capsule_name = host.content_source.name -%>
+<%-   end -%>
+<%-   report_row(
+      'Name': host.name,
+      'Type': (host.virtual ? 'virtual' : 'physical'),
+      'Sockets': host.sockets,
+      'Cores': host.cores,
+      'OS': os_name,
+      'OS Version': os_version,
+      'Hypervisor': virt_host,
+      'Registered Date/Time': registered_at(host),
+      'Organization': org_name,
+      'Location': loc_name,
+      'Capsule': capsule_name
+    ) -%>
+<%- end -%>
+<%= report_render -%>
