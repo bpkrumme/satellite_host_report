@@ -167,6 +167,7 @@ hammer report-template dump --name "Custom - Hosts"
 5. Ensure the correct **Organization** and **Location** context is selected in the UI masthead if your Satellite uses taxonomy switching.
 6. Click **Generate**.
 7. When generation completes, download the resulting file from the browser.
+
 ---
 
 ## Example output
