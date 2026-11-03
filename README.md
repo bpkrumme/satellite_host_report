@@ -5,7 +5,7 @@ This Satellite report template produces a CSV inventory of all registered hosts,
 ## Columns
 
 | Column | Description |
-|--------|-------------|
+| ------ | ----------- |
 | Name | Host FQDN |
 | Type | `physical` or `virtual` (from host reported data) |
 | Sockets | CPU socket count |
@@ -144,7 +144,7 @@ Hammer writes a file such as:
 Useful options:
 
 | Option | Purpose |
-|--------|---------|
+| ------ | ------- |
 | `--report-format csv` | CSV output (default for this use case) |
 | `--report-format json` | JSON instead of CSV |
 | `--path DIR` | Directory where the generated file is saved |
